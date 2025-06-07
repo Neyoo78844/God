@@ -1,62 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Photography Services</title>
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Framer Motion (via CDN) -->
-  <script src="https://unpkg.com/framer-motion/dist/framer-motion.umd.js"></script>
-
-  <style>
-    body {
-      background-color: #0f172a;
-      color: #f1f5f9;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .card {
-      perspective: 1000px;
-    }
-    .card-inner {
-      transition: transform 0.8s;
-      transform-style: preserve-3d;
-      position: relative;
-    }
-    .card.flipped .card-inner {
-      transform: rotateY(180deg);
-    }
-    .card-face {
-      position: absolute;
+  <title>Photography Services</title>  <!-- Tailwind CSS CDN -->  <script src="https://cdn.tailwindcss.com"></script>  <style>
+    /* Full-screen Video Container */
+    #intro, #main {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      backface-visibility: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      border-radius: 1rem;
+      overflow: hidden;
+      z-index: 10;
     }
-    .card-front {
-      background-color: #1e293b;
+    #intro { z-index: 20; background: black; display: flex; align-items: center; justify-content: center; }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
-    .card-back {
-      background-color: #334155;
-      transform: rotateY(180deg);
-      flex-direction: column;
-      text-align: center;
-    }
-  </style>
-</head>
-<body class="py-10 px-4">
+    #bgVideo { display: none; }
 
-  <h1 class="text-3xl font-bold text-center mb-10">Choose Your Perfect Plan</h1>
+    /* Main Overlay Styles */
+    #main {
+      display: none;
+      z-index: 5;
+    }
+    #overlay {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+    }
 
+    /* Card & UI Styles */
+    .card { perspective: 1000px; }
+    .card-inner { transition: transform 0.8s; transform-style: preserve-3d; position: relative; }
+    .card.flipped .card-inner { transform: rotateY(180deg); }
+    .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; padding: 1rem; border-radius: 1rem; }
+    .card-front { background-color: rgba(30, 41, 59, 0.8); }
+    .card-back { background-color: rgba(51, 65, 85, 0.8); transform: rotateY(180deg); flex-direction: column; text-align: center; }
+
+    /* Typewriter Header */
+    .typewriter h1 { overflow: hidden; border-right: .15em solid #fff; white-space: nowrap; margin: 0 auto; animation: typing 3s steps(30, end), blink-caret .75s step-end infinite; }
+    @keyframes typing { from { width: 0 } to { width: 100% } }
+    @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: white; } }
+
+    /* Fade-in Anim */
+    .animate-fade-in { animation: fadeInUp 1.2s ease both; }
+    .animate-fade-in.delay-200 { animation-delay: 0.2s; }
+    .animate-fade-in.delay-300 { animation-delay: 0.3s; }
+    .animate-fade-in.delay-500 { animation-delay: 0.5s; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  </style></head>
+<body>
+  <!-- Intro Trailer -->
+  <div id="intro">
+    <video id="introVideo" src="Game_GHOST_Of_Tsushima.mp4" autoplay muted playsinline></video>
+  </div>  <!-- Background Video & Music --><video id="bgVideo" src="Game_GHOST_Of_Tsushima.mp4" autoplay muted loop></video> <audio id="bgMusic" src="background.mp3" autoplay loop></audio>
+
+  <!-- Main Content Overlay -->  <div id="main">
+    <div id="overlay" class="py-10 px-4 text-gray-100 font-sans">
+      <!-- Typewriter Header -->
+      <div class="typewriter text-center mb-10">
+        <h1 class="text-3xl sm:text-4xl font-bold">Choose Your Perfect Plan</h1>
+      </div><!-- Card Grid -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-    <!-- Card Template -->
-    <div class="card w-full h-64" onclick="this.classList.toggle('flipped')">
+    <div class="card w-full h-64 animate-fade-in" onclick="this.classList.toggle('flipped')">
       <div class="card-inner w-full h-full">
         <div class="card-face card-front text-xl font-semibold">Photography</div>
         <div class="card-face card-back">
@@ -66,7 +77,7 @@
       </div>
     </div>
 
-    <div class="card w-full h-64" onclick="this.classList.toggle('flipped')">
+    <div class="card w-full h-64 animate-fade-in delay-200" onclick="this.classList.toggle('flipped')">
       <div class="card-inner w-full h-full">
         <div class="card-face card-front text-xl font-semibold">Video Shoot</div>
         <div class="card-face card-back">
@@ -76,7 +87,7 @@
       </div>
     </div>
 
-    <div class="card w-full h-64" onclick="this.classList.toggle('flipped')">
+    <div class="card w-full h-64 animate-fade-in delay-300" onclick="this.classList.toggle('flipped')">
       <div class="card-inner w-full h-full">
         <div class="card-face card-front text-xl font-semibold">Photo + Video</div>
         <div class="card-face card-back">
@@ -86,25 +97,38 @@
       </div>
     </div>
 
-    <div class="card w-full h-64" onclick="this.classList.toggle('flipped')">
+    <div class="card w-full h-64 animate-fade-in delay-500" onclick="this.classList.toggle('flipped')">
       <div class="card-inner w-full h-full">
         <div class="card-face card-front text-xl font-semibold">Freelancer Events</div>
         <div class="card-face card-back">
           <p class="text-2xl font-bold mb-2">Custom Pricing</p>
-          <p>Functions, live events, or custom shoots — we tailor everything to you.</p>
+          <p>Custom packages for events, conferences, and functions. Let's talk!</p>
         </div>
       </div>
     </div>
   </div>
 
   <!-- WhatsApp Contact Button -->
-  <div class="text-center mt-10">
+  <div class="text-center mt-12">
     <a href="https://chat.whatsapp.com/DDKvNKG5pnxIY6yeEXiWPP" target="_blank">
       <button class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full text-lg shadow-lg transition">
         Contact Us on WhatsApp
       </button>
     </a>
   </div>
+</div>
 
-</body>
+  </div>  <!-- Script to transition from intro to main -->  <script>
+    const introVideo = document.getElementById('introVideo');
+    const intro = document.getElementById('intro');
+    const bgVideo = document.getElementById('bgVideo');
+    const bgMusic = document.getElementById('bgMusic');
+    const main = document.getElementById('main');
+    introVideo.addEventListener('ended', () => {
+      intro.style.display = 'none';
+      bgVideo.style.display = 'block';
+      bgMusic.play();
+      main.style.display = 'block';
+    });
+  </script></body>
 </html>
