@@ -1,10 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My First Mobile Website</title>
+  <title>Offset Scanner Tool</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #111; color: #eee; }
+    input[type="file"], button { margin: 10px 0; padding: 10px; }
+    #output { white-space: pre-wrap; background: #222; padding: 10px; border-radius: 8px; }
+  </style>
 </head>
 <body>
-  <h1>Welcome!</h1>
-  <p>This website was created from a mobile phone.</p>
+  <h2>🔍 Offset Scanner Tool</h2>
+
+  <input type="file" id="fileInput" />
+  <br />
+  <button onclick="startScan()">🚀 Start Scan</button>
+
+  <h3>📜 Results:</h3>
+  <div id="output">Upload a file and click "Start Scan" to view results.</div>
+
+  <script>
+    function startScan() {
+      const file = document.getElementById('fileInput').files[0];
+      if (!file) return alert("Please select a file.");
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const data = new Uint8Array(e.target.result);
+        let textOutput = "";
+
+        const keywords = [
+          "SendPlayerReport", "TerminateOnReport", "ReportChe", "BanRequest", 
+          "KillSign", "ObservationFlag", "AntiCheatTrigger", "FlaggedByAI"
+        ];
+
+        const stringData = new TextDecoder().decode(data);
+        keywords.forEach(key => {
+          const pos = stringData.indexOf(key);
+          if (pos !== -1) {
+            textOutput += `✅ Found: ${key} at offset 0x${pos.toString(16)}\n`;
+          }
+        });
+
+        if (!textOutput) textOutput = "❌ No known offsets found.";
+
+        document.getElementById('output').innerText = textOutput;
+      };
+      reader.readAsArrayBuffer(file);
+    }
+  </script>
 </body>
 </html>
