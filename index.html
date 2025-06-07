@@ -66,7 +66,7 @@
             backdrop-filter: blur(5px);
         }
 
-        /* The VIP Pop-up Styling (Same as before) */
+        /* The VIP Pop-up Styling */
         #vip-popup {
             position: fixed;
             top: 0;
@@ -89,8 +89,8 @@
         .option-card { display: block; background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; text-decoration: none; padding: 20px 40px; border-radius: 8px; font-size: 1.1rem; transition: all 0.3s ease; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); cursor: pointer; }
         .option-card:hover { background-color: rgba(255, 255, 255, 0.15); border-color: #fff; transform: translateY(-5px); }
 
-        /* Main Content Styling (Same as before) */
-        #main-content { padding: 2rem; max-width: 1200px; margin: auto; opacity: 0; transition: opacity 0.8s ease-in 0.3s; background-color: #121212; /* Add background to see text over video */ }
+        /* Main Content Styling */
+        #main-content { padding: 2rem; max-width: 1200px; margin: auto; opacity: 0; transition: opacity 0.8s ease-in 0.3s; background-color: #121212; }
         #main-content.visible { opacity: 1; }
         section { padding: 80px 20px; border-bottom: 1px solid #333; }
         section:last-child { border-bottom: none; }
@@ -104,8 +104,8 @@
     <!-- 1. The Background Video Element -->
     <div class="video-overlay"></div>
     <video id="bg-video" autoplay loop muted playsinline>
-        <!-- This path must match your folder structure -->
-        <source src="videos/background-video.mp4" type="video/mp4">
+        <!-- === UPDATED VIDEO SOURCE FROM YOUR NEW GOOGLE DRIVE LINK === -->
+        <source src="https://drive.google.com/uc?export=download&id=1IwQIu85cnGsDf9BHCeTL3zLWwEbVNB1z" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
@@ -113,7 +113,7 @@
     <button id="sound-toggle">🔈</button>
 
 
-    <!-- The VIP Pop-up Section (No changes here) -->
+    <!-- The VIP Pop-up Section -->
     <div id="vip-popup">
         <div class="popup-content">
             <h1>Welcome</h1>
@@ -127,7 +127,7 @@
         </div>
     </div>
 
-    <!-- The Main Website Content (No changes here) -->
+    <!-- The Main Website Content -->
     <main id="main-content">
         <header>
             <h1 style="text-align: center; font-size: 2rem;">My Portfolio</h1>
@@ -136,7 +136,6 @@
         <section id="photography">
             <h2>Photography Gallery</h2>
             <div class="gallery-grid">
-                <!-- Add your local images here like "images/photo1.jpg" -->
                 <img src="https://via.placeholder.com/400x400.png?text=Photo+1" alt="Photo 1">
                 <img src="https://via.placeholder.com/400x400.png?text=Photo+2" alt="Photo 2">
             </div>
@@ -162,21 +161,19 @@
             const mainContent = document.getElementById('main-content');
             const optionCards = document.querySelectorAll('.option-card');
             
-            // --- NEW: Video and Sound Control Logic ---
             const video = document.getElementById('bg-video');
             const soundToggle = document.getElementById('sound-toggle');
 
             soundToggle.addEventListener('click', () => {
                 if (video.muted) {
                     video.muted = false;
-                    soundToggle.innerHTML = '🔊'; // Unmuted icon
+                    soundToggle.innerHTML = '🔊';
                 } else {
                     video.muted = true;
-                    soundToggle.innerHTML = '🔈'; // Muted icon
+                    soundToggle.innerHTML = '🔈';
                 }
             });
 
-            // --- OLD: Pop-up Logic (Same as before) ---
             optionCards.forEach(card => {
                 card.addEventListener('click', (event) => {
                     event.preventDefault(); 
