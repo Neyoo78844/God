@@ -1,195 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name | Photography & Videography</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
-
-    <style>
-        /* Basic Reset & Body Style */
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: 'Montserrat', sans-serif;
-            background-color: #121212;
-            color: #fff;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        /* --- BACKGROUND VIDEO STYLING --- */
-        #bg-video {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -2; /* Puts it behind everything */
-            object-fit: cover; /* Fills the screen without stretching */
-        }
-
-        /* Overlay to darken the video */
-        .video-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
-            z-index: -1;
-        }
-
-        /* --- SOUND CONTROL BUTTON --- */
-        #sound-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 1px solid white;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
-            z-index: 101;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(5px);
-        }
-
-        /* The VIP Pop-up Styling */
-        #vip-popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            opacity: 1;
-            visibility: visible;
-            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
-            z-index: 100;
-        }
-        #vip-popup.hidden { opacity: 0; visibility: hidden; }
-        .popup-content h1 { font-size: 3.5rem; font-weight: 700; margin-bottom: 0; }
-        .popup-content p { font-size: 1.2rem; font-weight: 300; margin-top: 5px; color: #ccc; }
-        .options-container { margin-top: 40px; display: flex; flex-direction: column; gap: 15px; }
-        .option-card { display: block; background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; text-decoration: none; padding: 20px 40px; border-radius: 8px; font-size: 1.1rem; transition: all 0.3s ease; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); cursor: pointer; }
-        .option-card:hover { background-color: rgba(255, 255, 255, 0.15); border-color: #fff; transform: translateY(-5px); }
-
-        /* Main Content Styling */
-        #main-content { padding: 2rem; max-width: 1200px; margin: auto; opacity: 0; transition: opacity 0.8s ease-in 0.3s; background-color: #121212; }
-        #main-content.visible { opacity: 1; }
-        section { padding: 80px 20px; border-bottom: 1px solid #333; }
-        section:last-child { border-bottom: none; }
-        section h2 { text-align: center; font-size: 2.5rem; margin-bottom: 40px; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
-        .gallery-grid img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
-    </style>
+<meta charset="UTF-8">
+<title>Photography &amp; Videography Services</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: #f4f4f4;
+    color: #333;
+  }
+  h1, h2, h3 {
+    color: #444;
+  }
+  .service {
+    margin: 15px 0;
+  }
+  .service button {
+    background: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .service button:hover {
+    background: #0056b3;
+  }
+  .price {
+    display: inline-block;
+    margin-left: 20px;
+    font-weight: bold;
+    color: #007BFF;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease;
+  }
+  .price.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+  .whatsapp {
+    display: inline-block;
+    background: #25D366;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 10px;
+  }
+  .whatsapp:hover {
+    background: #128C7E;
+  }
+</style>
 </head>
 <body>
+  <h1>Professional Photography &amp; Videography Services</h1>
+  <p>We are a full-service photography and videography studio with years of experience. Our team specializes in capturing stunning images and HD video for events, portfolios, and creative projects. Each package is designed to deliver polished, high-quality results. Whether it's a one-day photoshoot, a full-day video shoot, or both combined, we bring professionalism and creativity to every session.</p>
 
-    <!-- 1. The Background Video Element -->
-    <div class="video-overlay"></div>
-    <video id="bg-video" autoplay loop muted playsinline>
-        <!-- === UPDATED VIDEO SOURCE FROM YOUR NEW GOOGLE DRIVE LINK === -->
-        <source src="https://drive.google.com/uc?export=download&id=1IwQIu85cnGsDf9BHCeTL3zLWwEbVNB1z" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+  <h2>Our Services</h2>
+  <p>Choose a service below to see its price:</p>
+  <div class="service">
+    <button onclick="document.getElementById('photoPrice').classList.toggle('visible')">
+      Photoshoot (1 Day)
+    </button>
+    <span class="price" id="photoPrice">&#8377;4000</span>
+  </div>
+  <div class="service">
+    <button onclick="document.getElementById('videoPrice').classList.toggle('visible')">
+      Video Shoot (1 Day)
+    </button>
+    <span class="price" id="videoPrice">&#8377;6000</span>
+  </div>
+  <div class="service">
+    <button onclick="document.getElementById('comboPrice').classList.toggle('visible')">
+      Photo &amp; Video (1 Day)
+    </button>
+    <span class="price" id="comboPrice">&#8377;10000</span>
+  </div>
 
-    <!-- 2. The Sound Control Button -->
-    <button id="sound-toggle">🔈</button>
-
-
-    <!-- The VIP Pop-up Section -->
-    <div id="vip-popup">
-        <div class="popup-content">
-            <h1>Welcome</h1>
-            <p>What are you looking for?</p>
-            <div class="options-container">
-                <a href="#photography" class="option-card" data-target="photography">Photography</a>
-                <a href="#videography" class="option-card" data-target="videography">Video Shoot</a>
-                <a href="#combo" class="option-card" data-target="combo">Photo & Video</a>
-                <a href="#freelancer" class="option-card" data-target="freelancer">Hire Me (Freelance)</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- The Main Website Content -->
-    <main id="main-content">
-        <header>
-            <h1 style="text-align: center; font-size: 2rem;">My Portfolio</h1>
-        </header>
-
-        <section id="photography">
-            <h2>Photography Gallery</h2>
-            <div class="gallery-grid">
-                <img src="https://via.placeholder.com/400x400.png?text=Photo+1" alt="Photo 1">
-                <img src="https://via.placeholder.com/400x400.png?text=Photo+2" alt="Photo 2">
-            </div>
-        </section>
-
-        <section id="videography">
-            <h2>Videography Reel</h2>
-        </section>
-
-        <section id="combo">
-            <h2>Photo & Video Packages</h2>
-        </section>
-
-        <section id="freelancer">
-            <h2>Contact & Freelance Inquiries</h2>
-        </section>
-    </main>
-
-    <!-- JavaScript code -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const popup = document.getElementById('vip-popup');
-            const mainContent = document.getElementById('main-content');
-            const optionCards = document.querySelectorAll('.option-card');
-            
-            const video = document.getElementById('bg-video');
-            const soundToggle = document.getElementById('sound-toggle');
-
-            soundToggle.addEventListener('click', () => {
-                if (video.muted) {
-                    video.muted = false;
-                    soundToggle.innerHTML = '🔊';
-                } else {
-                    video.muted = true;
-                    soundToggle.innerHTML = '🔈';
-                }
-            });
-
-            optionCards.forEach(card => {
-                card.addEventListener('click', (event) => {
-                    event.preventDefault(); 
-                    popup.classList.add('hidden');
-                    mainContent.classList.add('visible');
-                    const targetId = card.getAttribute('data-target');
-                    const targetSection = document.getElementById(targetId);
-                    if (targetSection) {
-                        targetSection.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
+  <h2>Contact Us</h2>
+  <p>Ready to book or have questions? Click the link below to message us on WhatsApp:</p>
+  <a href="https://chat.whatsapp.com/DDKvNKG5pnxIY6yeEXiWPP" target="_blank" class="whatsapp">
+    Join WhatsApp Chat
+  </a>
 
 </body>
 </html>
