@@ -1,52 +1,231 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Offset Scanner Tool</title>
-  <style>
-    body { font-family: Arial; padding: 20px; background: #111; color: #eee; }
-    input[type="file"], button { margin: 10px 0; padding: 10px; }
-    #output { white-space: pre-wrap; background: #222; padding: 10px; border-radius: 8px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name | Photography & Videography</title>
+    
+    <!-- Google Fonts for professional look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- CSS code is inside the <style> tag -->
+    <style>
+        /* Basic Reset & Body Style */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #121212;
+            color: #fff;
+            /* 
+               IMPORTANT: Use a link to your own stunning photo here. 
+               Find an image online (e.g., on Unsplash), right-click, "Copy Image Address", and paste it here.
+            */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1964');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            overflow-x: hidden;
+            scroll-behavior: smooth; /* Enables smooth scrolling */
+        }
+
+        /* The VIP Pop-up Styling */
+        #vip-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+            z-index: 100;
+        }
+
+        #vip-popup.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .popup-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0;
+        }
+
+        .popup-content p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-top: 5px;
+            color: #ccc;
+        }
+
+        .options-container {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* The Option Cards Styling */
+        .option-card {
+            display: block;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            text-decoration: none;
+            padding: 20px 40px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px); /* Glass effect */
+            -webkit-backdrop-filter: blur(10px); /* For Safari */
+            cursor: pointer;
+        }
+
+        /* Hover effect for the cards */
+        .option-card:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: #fff;
+            transform: translateY(-5px);
+        }
+
+        /* Main Content Styling */
+        #main-content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: auto;
+            opacity: 0;
+            transition: opacity 0.8s ease-in 0.3s;
+        }
+        
+        #main-content.visible {
+            opacity: 1;
+        }
+
+        section {
+            padding: 80px 20px;
+            border-bottom: 1px solid #333;
+        }
+        
+        section:last-child {
+            border-bottom: none;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-grid img:hover {
+            transform: scale(1.05);
+        }
+
+    </style>
 </head>
 <body>
-  <h2>🔍 Offset Scanner Tool</h2>
 
-  <input type="file" id="fileInput" />
-  <br />
-  <button onclick="startScan()">🚀 Start Scan</button>
+    <!-- The VIP Pop-up Section -->
+    <div id="vip-popup">
+        <div class="popup-content">
+            <h1>Welcome</h1>
+            <p>What are you looking for?</p>
+            <div class="options-container">
+                <a href="#photography" class="option-card" data-target="photography">Photography</a>
+                <a href="#videography" class="option-card" data-target="videography">Video Shoot</a>
+                <a href="#combo" class="option-card" data-target="combo">Photo & Video</a>
+                <a href="#freelancer" class="option-card" data-target="freelancer">Hire Me (Freelance)</a>
+            </div>
+        </div>
+    </div>
 
-  <h3>📜 Results:</h3>
-  <div id="output">Upload a file and click "Start Scan" to view results.</div>
+    <!-- The Main Website Content (Initially Hidden) -->
+    <main id="main-content">
+        <header>
+            <!-- You can build a proper nav bar here later -->
+            <h1 style="text-align: center; font-size: 2rem;">My Portfolio</h1>
+        </header>
 
-  <script>
-    function startScan() {
-      const file = document.getElementById('fileInput').files[0];
-      if (!file) return alert("Please select a file.");
+        <section id="photography">
+            <h2>Photography Gallery</h2>
+            <div class="gallery-grid">
+                <!-- Add your <img> tags here -->
+                <img src="https://via.placeholder.com/400x400.png?text=Portrait" alt="Photo 1">
+                <img src="https://via.placeholder.com/400x400.png?text=Landscape" alt="Photo 2">
+                <img src="https://via.placeholder.com/400x400.png?text=Wedding" alt="Photo 3">
+                <img src="https://via.placeholder.com/400x400.png?text=Product" alt="Photo 4">
+                <img src="https://via.placeholder.com/400x400.png?text=Event" alt="Photo 5">
+                <img src="https://via.placeholder.com/400x400.png?text=Street" alt="Photo 6">
+            </div>
+        </section>
 
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const data = new Uint8Array(e.target.result);
-        let textOutput = "";
+        <section id="videography">
+            <h2>Videography Reel</h2>
+            <p style="text-align:center;">Your video reels and embeds would go here.</p>
+        </section>
 
-        const keywords = [
-          "SendPlayerReport", "TerminateOnReport", "ReportChe", "BanRequest", 
-          "KillSign", "ObservationFlag", "AntiCheatTrigger", "FlaggedByAI"
-        ];
+        <section id="combo">
+            <h2>Photo & Video Packages</h2>
+            <p style="text-align:center;">Information about your combined packages goes here.</p>
+        </section>
 
-        const stringData = new TextDecoder().decode(data);
-        keywords.forEach(key => {
-          const pos = stringData.indexOf(key);
-          if (pos !== -1) {
-            textOutput += `✅ Found: ${key} at offset 0x${pos.toString(16)}\n`;
-          }
+        <section id="freelancer">
+            <h2>Contact & Freelance Inquiries</h2>
+            <p style="text-align:center;">Your contact details or a contact form would go here.</p>
+        </section>
+    </main>
+
+    <!-- JavaScript code is inside the <script> tag -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const popup = document.getElementById('vip-popup');
+            const mainContent = document.getElementById('main-content');
+            const optionCards = document.querySelectorAll('.option-card');
+
+            optionCards.forEach(card => {
+                card.addEventListener('click', (event) => {
+                    event.preventDefault(); 
+
+                    // 1. Hide the pop-up with a fade-out effect
+                    popup.classList.add('hidden');
+                    
+                    // 2. Show the main content with a fade-in effect
+                    mainContent.classList.add('visible');
+
+                    // 3. Smoothly scroll to the selected section
+                    const targetId = card.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
         });
+    </script>
 
-        if (!textOutput) textOutput = "❌ No known offsets found.";
-
-        document.getElementById('output').innerText = textOutput;
-      };
-      reader.readAsArrayBuffer(file);
-    }
-  </script>
 </body>
 </html>
