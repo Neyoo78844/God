@@ -1,90 +1,110 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photography Services</title>
 
-export default function PricingCards() {
-  // Define the services with title, price, and description
-  const services = [
-    {
-      title: 'Photography',
-      price: '₹4000/day',
-      description: 'Professional photography service for events, portraits, and products. We capture high-quality images with premium equipment and an experienced photographer, ensuring every moment is beautifully preserved.',
-    },
-    {
-      title: 'Video Shoot',
-      price: '₹6000/day',
-      description: 'Full-service video production for events, commercials, or personal projects. Our team handles filming and editing, delivering crisp, cinematic-quality footage that tells your story.',
-    },
-    {
-      title: 'Photography + Video',
-      price: '₹10000/day',
-      description: 'Combined photography and videography package for comprehensive coverage. Get both stunning photos and high-definition video of your event, all coordinated by our professional team for a seamless experience.',
-    },
-    {
-      title: 'Freelancer Events',
-      price: 'Custom pricing',
-      description: 'Tailored event coverage for conferences, workshops, and more. We offer custom packages to fit your unique needs. Contact us for a quote and let us create a personalized media plan for your event.',
-    },
-  ];
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-  // Card component for each service
-  function ServiceCard({ title, price, description }) {
-    const [isOpen, setIsOpen] = useState(false);
-    return (
-      <div className="w-full max-w-xs mx-auto" style={{ perspective: 1000 }}>
-        <motion.div
-          className="relative bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer w-full h-64"
-          onClick={() => setIsOpen(!isOpen)}
-          animate={{ rotateY: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.8 }}
-          style={{ transformStyle: 'preserve-3d' }}
-        >
-          {/* Front Side (service title) */}
-          <div
-            className="absolute inset-0 flex flex-col items-center justify-center text-center"
-            style={{ backfaceVisibility: 'hidden' }}
-          >
-            <h3 className="text-xl font-semibold">{title}</h3>
-          </div>
+  <!-- Framer Motion (via CDN) -->
+  <script src="https://unpkg.com/framer-motion/dist/framer-motion.umd.js"></script>
 
-          {/* Back Side (price and description) */}
-          <div
-            className="absolute inset-0 flex flex-col items-center justify-center text-center"
-            style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
-          >
-            <p className="text-2xl font-bold">{price}</p>
-            <p className="mt-2 text-sm">{description}</p>
-          </div>
-        </motion.div>
-      </div>
-    );
-  }
+  <style>
+    body {
+      background-color: #0f172a;
+      color: #f1f5f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .card {
+      perspective: 1000px;
+    }
+    .card-inner {
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+      position: relative;
+    }
+    .card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      border-radius: 1rem;
+    }
+    .card-front {
+      background-color: #1e293b;
+    }
+    .card-back {
+      background-color: #334155;
+      transform: rotateY(180deg);
+      flex-direction: column;
+      text-align: center;
+    }
+  </style>
+</head>
+<body class="py-10 px-4">
 
-  return (
-    <section className="bg-gray-900 text-gray-100 py-12 px-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((svc, idx) => (
-            <ServiceCard
-              key={idx}
-              title={svc.title}
-              price={svc.price}
-              description={svc.description}
-            />
-          ))}
-        </div>
+  <h1 class="text-3xl font-bold text-center mb-10">Choose Your Perfect Plan</h1>
 
-        <div className="mt-8 flex justify-center">
-          <a
-            href="https://chat.whatsapp.com/DDKvNKG5pnxIY6yeEXiWPP"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <button className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-md transition">
-              Join Our WhatsApp Group
-            </button>
-          </a>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+    <!-- Card Template -->
+    <div class="card w-full h-64" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner w-full h-full">
+        <div class="card-face card-front text-xl font-semibold">Photography</div>
+        <div class="card-face card-back">
+          <p class="text-2xl font-bold mb-2">₹4000/day</p>
+          <p>Premium photography for events, portraits, and products. Quality guaranteed.</p>
         </div>
       </div>
-    </section>
-  );
-}
+    </div>
+
+    <div class="card w-full h-64" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner w-full h-full">
+        <div class="card-face card-front text-xl font-semibold">Video Shoot</div>
+        <div class="card-face card-back">
+          <p class="text-2xl font-bold mb-2">₹6000/day</p>
+          <p>Cinematic videos with full editing. Capture every moment in motion.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card w-full h-64" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner w-full h-full">
+        <div class="card-face card-front text-xl font-semibold">Photo + Video</div>
+        <div class="card-face card-back">
+          <p class="text-2xl font-bold mb-2">₹10000/day</p>
+          <p>All-in-one coverage — high-quality photos & stunning video highlights.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card w-full h-64" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner w-full h-full">
+        <div class="card-face card-front text-xl font-semibold">Freelancer Events</div>
+        <div class="card-face card-back">
+          <p class="text-2xl font-bold mb-2">Custom Pricing</p>
+          <p>Functions, live events, or custom shoots — we tailor everything to you.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WhatsApp Contact Button -->
+  <div class="text-center mt-10">
+    <a href="https://chat.whatsapp.com/DDKvNKG5pnxIY6yeEXiWPP" target="_blank">
+      <button class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full text-lg shadow-lg transition">
+        Contact Us on WhatsApp
+      </button>
+    </a>
+  </div>
+
+</body>
+</html>
